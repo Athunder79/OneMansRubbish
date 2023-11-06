@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Register</h2>
+<form method="POST" action="{{ url_for('register') }}">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="user_name" required><br><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required><br><br>
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone"><br><br>
+    <label for="address_line1">Address Line 1:</label>
+    <input type="text" id="address_line1" name="address_line1"><br><br>
+    <label for="address_line2">Address Line 2:</label>
+    <input type="text" id="address_line2" name="address_line2"><br><br>
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city"><br><br>
+    <label for="country">Country:</label>
+    <input type="text" id="country" name="country"><br><br>
+    <input type="submit" value="Register">
+</form>
+{% endblock %}
