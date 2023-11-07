@@ -7,9 +7,9 @@ from sqlalchemy import text
 
 db = SQLAlchemy()
 
-class Users(UserMixin, db.Model):
+class User(UserMixin, db.Model):
     __tablename__ = 'users'
-    user_id = db.mapped_column(db.Integer,primary_key=True)
+    id = db.mapped_column(db.Integer,primary_key=True)
     user_name = db.mapped_column(db.String(20),unique=True)
     password = db.mapped_column(db.String(20))
     phone = db.mapped_column(db.String(20))
@@ -19,7 +19,7 @@ class Users(UserMixin, db.Model):
     country = db.mapped_column(db.String(20))
 
     def __repr__(self):
-        return f"Users('{self.user_id}','{self.user_name}','{self.user_password}','{self.user_phone}','{self.user_address_line1}','{self.user_address_line2}','{self.user_city}','{self.user_country}')"
+        return f"Users('{self.id}','{self.user_name}','{self.password}','{self.phone}','{self.address_line1}','{self.address_line2}','{self.city}','{self.country}')"
 
 
 class Catagory(db.Model):
@@ -34,17 +34,19 @@ class Catagory(db.Model):
 class Post(db.Model):
     __tablename__ = 'post'
     post_id = db.mapped_column(db.Integer,primary_key=True)
+    user_id = db.mapped_column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    posted_by = db.relationship('User',backref='post',lazy=True)
     post_title = db.mapped_column(db.String(100))
     post_category = db.mapped_column(db.String(100))
     post_quantity = db.mapped_column(db.Integer)
-    post_discription = db.mapped_column(db.Text)
+    post_description = db.mapped_column(db.Text)
     post_date = db.mapped_column(db.DateTime,default=datetime.utcnow)
     post_location = db.mapped_column(db.String(100))
     post_status = db.mapped_column(db.String(100))
-    post_comments = db.relationship('Comments',backref='post',lazy=True)
+   
 
     def __repr__(self):
-        return f"Post('{self.post_id}','{self.post_title}','{self.post_category}','{self.post_quantity}','{self.post_discription}','{self.post_date}','{self.post_location}','{self.post_status}')"
+        return f"Post('{self.post_id}','{self.posted_by}'{self.user_id}','{self.post_title}','{self.post_category}','{self.post_quantity}','{self.post_description}','{self.post_date}','{self.post_location}','{self.post_status}')"
 
 class Claim(db.Model):
     __tablename__ = 'claims'
@@ -60,7 +62,8 @@ class Comments(db.Model):
     __tablename__ = 'comments'
     comment_id = db.mapped_column(db.Integer,primary_key=True)
     comment_post_id = db.mapped_column(db.Integer,db.ForeignKey('post.post_id'),nullable=False)
-    comment_user_id = db.mapped_column(db.Integer)
+    comment_user_id = db.mapped_column(db.Integer,db.ForeignKey('users.id'),nullable=False)
+    comment_by = db.relationship('User',backref='comments',lazy=True)
     comment_text = db.mapped_column(db.Text)
     comment_date = db.mapped_column(db.DateTime,default=datetime.utcnow)
 

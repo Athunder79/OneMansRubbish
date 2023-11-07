@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <h2>Listing</h2>
+    <p>{{ post.posted_by.user_name }}</p>
+    <h3>{{ post.post_title }}</h3>
+    <p>{{ post.post_description }}</p>
+    <p>{{ post.post_category }}</p>
+    <p>{{ post.post_quantity }}</p>
+    <p>{{ post.post_location }}</p>
+    <p>{{ post.post_status }}</p>
+    <p>{{ post.post_date }}</p> 
+
+    <h3>Comments</h3>
+    {% for comment in comments %}
+        <p>{{ comment.comment_by.user_name }} said:</p>
+        <p>{{ comment.comment_text }}</p>
+        <p>On:{{ comment.comment_date }}</p>
+        
+    {% endfor %}
+
+    <button action id="add-comment" class="show">Add Comment</button>
+
+    <form action="/listing/{{post.post_id}}" class="hide" id='commentForm' method="POST">
+        <label for="comment">Comment:</label><br>
+        <textarea id="comment-text" name="comment-text" rows="4" cols="50" required></textarea><br><br>
+        <input type="submit" id='submit-comment' value="Submit">
+    </form>
+
+       
+  
+{% endblock %}
