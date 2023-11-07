@@ -11,6 +11,7 @@ class User(UserMixin, db.Model):
     __tablename__ = 'users'
     id = db.mapped_column(db.Integer,primary_key=True)
     user_name = db.mapped_column(db.String(20),unique=True)
+    full_name = db.mapped_column(db.String(50))
     password = db.mapped_column(db.String(20))
     phone = db.mapped_column(db.String(20))
     address_line1 = db.mapped_column(db.String(20))
@@ -19,16 +20,16 @@ class User(UserMixin, db.Model):
     country = db.mapped_column(db.String(20))
 
     def __repr__(self):
-        return f"Users('{self.id}','{self.user_name}','{self.password}','{self.phone}','{self.address_line1}','{self.address_line2}','{self.city}','{self.country}')"
+        return f"Users('{self.id}','{self.user_name}','{self.full_name}','{self.password}','{self.phone}','{self.address_line1}','{self.address_line2}','{self.city}','{self.country}')"
 
 
-class Catagory(db.Model):
-    __tablename__ = 'catagories'
-    catagory_id = db.mapped_column(db.Integer,primary_key=True)
-    catagory_name = db.mapped_column(db.String(20))
+class Category(db.Model):
+    __tablename__ = 'categories'
+    category_id = db.mapped_column(db.Integer,primary_key=True)
+    category_name = db.mapped_column(db.String(20))
 
     def __repr__(self):
-        return f"Catagory('{self.catagory_id}','{self.catagory_name}')"
+        return f"Category('{self.category_id}','{self.category_name}')"
      
 
 class Post(db.Model):
@@ -40,7 +41,7 @@ class Post(db.Model):
     post_category = db.mapped_column(db.String(100))
     post_quantity = db.mapped_column(db.Integer)
     post_description = db.mapped_column(db.Text)
-    post_date = db.mapped_column(db.DateTime,default=datetime.utcnow)
+    post_date = db.Column(db.DateTime, default=datetime.now().replace(second=0, microsecond=0))
     post_location = db.mapped_column(db.String(100))
     post_status = db.mapped_column(db.String(100))
    

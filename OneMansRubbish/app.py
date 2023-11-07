@@ -40,15 +40,16 @@ def register():
     if request.method == "POST":
         user_name = request.form['user_name']
         password = request.form['password']
+        full_name = request.form['full_name']
         phone = request.form['phone']
         address_line1 = request.form['address_line1']
         address_line2 = request.form['address_line2']
         city = request.form['city']
         country = request.form['country']
-        user = User(user_name=user_name, password=password, phone=phone, address_line1=address_line1, address_line2=address_line2, city=city, country=country)
+        user = User(user_name=user_name, password=password, full_name=full_name, phone=phone, address_line1=address_line1, address_line2=address_line2, city=city, country=country)
         db.session.add(user)
         db.session.commit()
-        flash('Thanks for registering')
+        
         return redirect(url_for('login'))
     return render_template('register.html')
 
@@ -69,10 +70,18 @@ def login():
             return redirect(url_for('login'))
     return render_template('login.html')
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
+
 
 @app.route('/listing/<int:post_id>', methods=['GET','POST'])
 def listing(post_id):
+   
     if request.method == "POST":
+        # todo: check user logged in
         comment_text = request.form['comment-text']
         comment_user_id = current_user.id
         comment_post_id = post_id
@@ -85,9 +94,9 @@ def listing(post_id):
 
 
 
-@app.route('/catagories')
-def catagories():
-    return render_template('catagories.html')
+@app.route('/categories')
+def categories():
+    return render_template('categories.html')
 
 
 @app.route('/submit_post', methods=['GET', 'POST'])

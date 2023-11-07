@@ -8,22 +8,25 @@
   <script src="/static/script/script.js"></script>
 </head>
 <body>
-  <header>
+  <header class="navbar">
     <h1>OneMansRubbish</h1>
-    <nav class="navbar">
+    {% if current_user.is_authenticated %}
+    <h2>Welcome {{current_user.user_name}}!</h2>
+    {% endif %}
+    
+    <nav>
       <ul>
         <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="{{ url_for('register') }}">Register</a></li>
-        <li><a href="{{ url_for('catagories') }}">Catagories</a></li>
-        <li><a href="{{ url_for('login') }}">Login</a></li>
         <li><a href="{{ url_for('submit_post') }}">Add Item</a></li>
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-          {% for message in messages %}
-            <li>{{ message }}</li>
-          {% endfor %}
+        <li><a href="{{ url_for('categories') }}">Catagories</a></li>
+        {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% else %} 
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        <li><a href="{{ url_for('register') }}">Register</a></li>
         {% endif %}
-      {% endwith %}
+        
+  
 
       </ul>
     </nav>
