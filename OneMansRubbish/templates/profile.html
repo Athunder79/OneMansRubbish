@@ -17,7 +17,7 @@
         <td>
             {% for claim in claimed %}
                 {% if claim.claim_post_id == posts.post_id %}
-                    {{ claim.claimed_by.user_name }}<br>
+                    <a class="page-link" href="/directMessage/{{ claim.claim_user_id }}">{{ claim.claimed_by.user_name }}</a><br>
                 {% endif %}
             {% endfor %}
         </td>
@@ -26,9 +26,5 @@
 {% endfor %}
     </tbody>
 </table>
-
-
-
-
 
 {% endblock %}
