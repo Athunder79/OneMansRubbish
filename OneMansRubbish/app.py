@@ -90,7 +90,7 @@ def listing(post_id):
         db.session.commit()
        
     post = Post.query.get_or_404(post_id)
-    return render_template('listing.html', post=post, comments=Comments.query.filter_by(comment_post_id=post_id).all())
+    return render_template('listing.html', post=post, comments=Comments.query.filter_by(comment_post_id=post_id).all(), claims=Claim.query.filter_by(claim_post_id=post_id).all())
 
 # change post staus to claimed
 @app.route('/claim_post/<int:post_id>', methods=['GET','POST'])
@@ -104,6 +104,9 @@ def claim_post(post_id):
         claim_user_id = current_user.id
         claim_status = "claimed"
         claim = Claim(claim_post_id=claim_post_id, claim_user_id=claim_user_id, claim_status=claim_status)
+        post.post_quantity = post.post_quantity - 1
+        if post.post_quantity == 0:
+            post.post_status = "Reserved-Pending Collection"
         db.session.add(claim)
         db.session.commit()
         return redirect(url_for('listing', post_id=post.post_id))
@@ -126,9 +129,17 @@ def submit_post():
         post_category = request.form['post_category']
         post_quantity = request.form['post_quantity']
         post_location = request.form['post_location']
-        post_status = request.form['post_status']
-
-        post = Post(post_title=post_title, user_id=user_id, post_description=post_description, post_category=post_category, post_quantity=post_quantity, post_location=post_location, post_status=post_status)
+     
+        post_img_url = request.form['post_img_url']
+       
+        post = Post(post_title=post_title, 
+                    user_id=user_id, 
+                    post_description=post_description, 
+                    post_category=post_category, 
+                    post_quantity=post_quantity, 
+                    post_location=post_location, 
+                   
+                    post_img_url=post_img_url)
         db.session.add(post)
         db.session.commit()
        
@@ -136,7 +147,12 @@ def submit_post():
     return render_template('submit_post.html')
 
 
-
+@app.route('/profile')
+@login_required
+def profile():
+    return render_template('profile.html', posted=Post.query.filter_by(user_id=current_user.id).all(),
+                           claimed=Claim.query.all(),
+                           comments=Comments.query.filter_by(comment_user_id=current_user.id).all())
 
 if __name__ == "__main__":
     app.run(debug=True)

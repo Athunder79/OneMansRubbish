@@ -13,21 +13,19 @@
     {% if current_user.is_authenticated %}
     <h2>Welcome {{current_user.user_name}}!</h2>
     {% endif %}
-    
+
     <nav>
       <ul>
         <li><a href="{{ url_for('index') }}">Home</a></li>
         <li><a href="{{ url_for('submit_post') }}">Add Item</a></li>
         <li><a href="{{ url_for('categories') }}">Catagories</a></li>
         {% if current_user.is_authenticated %}
+        <li><a href="{{ url_for('profile') }}">Profile</a></li>
         <li><a href="{{ url_for('logout') }}">Logout</a></li>
-        {% else %} 
+        {% else %}
         <li><a href="{{ url_for('login') }}">Login</a></li>
         <li><a href="{{ url_for('register') }}">Register</a></li>
         {% endif %}
-        
-  
-
       </ul>
     </nav>
   </header>

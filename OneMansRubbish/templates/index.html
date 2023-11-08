@@ -4,6 +4,7 @@
 
 
     {% for posts in posted %}
+    <div class="center">
     <p>{{ posts.posted_by.user_name }}</p>
         <h3>{{ posts.post_title }}</h3>
         <p>{{ posts.post_category }}</p>
@@ -11,10 +12,9 @@
         <p>{{ posts.post_location }}</p>
         <p>{{ posts.post_status }}</p>
         <p>{{ posts.post_date.strftime('%d/%m/20%y Time: %H:%M') }}</p>
+        <img src="{{ posts.post_img_url }}" alt="Image of {{ posts.post_title }}">
         <button onclick="window.location.href='{{ url_for('listing', post_id=posts.post_id) }}'">View Listing</button>
+    </div>
     {% endfor %}
-
-
-    
 
 {% endblock %}

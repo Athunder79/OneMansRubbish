@@ -43,16 +43,19 @@ class Post(db.Model):
     post_description = db.mapped_column(db.Text)
     post_date = db.Column(db.DateTime, default=datetime.now().replace(second=0, microsecond=0))
     post_location = db.mapped_column(db.String(100))
-    post_status = db.mapped_column(db.String(100))
+    post_status = db.mapped_column(db.String(100),default='Available')
+    post_img_url = db.mapped_column(db.String(100))
    
     def __repr__(self):
-        return f"Post('{self.post_id}','{self.posted_by}'{self.user_id}','{self.post_title}','{self.post_category}','{self.post_quantity}','{self.post_description}','{self.post_date}','{self.post_location}','{self.post_status}')"
+        return f"Post('{self.post_id}','{self.posted_by}'{self.user_id}','{self.post_title}','{self.post_category}','{self.post_quantity}','{self.post_description}','{self.post_date}','{self.post_location}','{self.post_status}','{self.post_img_url}')"
 
 class Claim(db.Model):
     __tablename__ = 'claims'
     claim_id = db.mapped_column(db.Integer,primary_key=True)
     claim_post_id = db.mapped_column(db.Integer,db.ForeignKey('post.post_id'),nullable=False)
     claim_user_id = db.mapped_column(db.Integer,db.ForeignKey('users.id'),nullable=False)
+    claimed_by = db.relationship('User',backref='claims',lazy=True)
+    claimed_post = db.relationship('Post',backref='claims',lazy=True)
     claim_status = db.mapped_column(db.String(100),default='Available')
 
     def __repr__(self):

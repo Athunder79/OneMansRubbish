@@ -2,21 +2,31 @@
 {% block content %}
 
     <h2>Listing</h2>
-    <p>{{ post.posted_by.user_name }}</p>
+    <div class="center">
     <h3>{{ post.post_title }}</h3>
+    <img src="{{ post.post_img_url }}" alt="Image of {{ post.post_title }}">
+    <h3>Description</h3>
     <p>{{ post.post_description }}</p>
-    <p>{{ post.post_category }}</p>
-    <p>{{ post.post_quantity }}</p>
-    <p>{{ post.post_location }}</p>
-    <p id="status">{{ post.post_status }}</p>
-    <p>{{ post.post_date.strftime('%d-%m-20%y Time: %H:%M') }}</p> 
-
+    <p><strong>Category:</strong> {{ post.post_category }}  &nbsp;<strong> Qty: </strong>{{ post.post_quantity }}</p>
+    <p><strong>Location:</strong> {{ post.post_location }}</p>
+    <p><strong>Status:&nbsp;</strong><span id="status">{{ post.post_status }}
+    {% if claim in claims %}
+         {{ claim.claimed_by.user_name }}
+    {% endif %}
+    </span></p>
+    <p><strong>Posted By:  </strong>{{ post.posted_by.user_name }} <strong>On:  </strong>{{ post.post_date.strftime('%d-%m-20%y Time:  %H:%M') }}</p>
+    </div>    
+    
+    <div class="center">
     <h3>Comments</h3>
     {% for comment in comments %}
+    <div class="center">
         <p>{{ comment.comment_by.user_name }} said:</p>
         <p>{{ comment.comment_text }}</p>
         <p>On:{{ comment.comment_date.strftime(' %d-%m-20%Y -- %H:%M') }}</p>
+    </div>
     {% endfor %}
+    
 
     <button type="submit" action id="add-comment" class="show">Add Comment</button>
 
@@ -25,11 +35,14 @@
         <textarea id="comment-text" name="comment-text" rows="4" cols="50" required></textarea><br><br>
         <input type="submit" id="submit-comment" value="Submit"><button type="button" id="cancel-comment">Cancel</button>
     </form>
+    </div>
 
     <!-- link to claim page -->
     <!-- <button onclick="window.location.href='{{ url_for('claim_post', post_id=post.post_id) }}'">Claim Item</button> -->
 
     <form action="/claim_post/{{post.post_id}}" method="POST">
         <input id="claimButton" class="show"  type="submit" value="Claim Item">
+    </form>
+    </div>
 
 {% endblock %}

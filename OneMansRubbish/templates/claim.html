@@ -1,9 +1,0 @@
-{% extends 'base.html' %}
-{% block content %}
-<h2>Claim</h2>
-<p>Are you sure you want to claim this item?</p>
-<form action="/claim_post/{{post.post_id}}" method="POST">
-    <input type="submit" value="Yes">
-    
-
-{% endblock %}
