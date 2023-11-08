@@ -9,25 +9,29 @@
     <p>{{ post.post_quantity }}</p>
     <p>{{ post.post_location }}</p>
     <p>{{ post.post_status }}</p>
-    <p>{{ post.post_date.strftime('%d/%m/20%y Time: %H:%M') }}</p> 
+    <p>{{ post.post_date.strftime('%d-%m-20%y Time: %H:%M') }}</p> 
 
     <h3>Comments</h3>
     {% for comment in comments %}
         <p>{{ comment.comment_by.user_name }} said:</p>
         <p>{{ comment.comment_text }}</p>
-        <p>On:{{ comment.comment_date.strftime('%Y/%m/20%d -- %H:%M') }}</p>
-       
-        
+        <p>On:{{ comment.comment_date.strftime(' %d-%m-20%Y -- %H:%M') }}</p>
     {% endfor %}
 
-    <button action id="add-comment" class="show">Add Comment</button>
+    <button type="submit" action id="add-comment" class="show">Add Comment</button>
 
-    <form action="/listing/{{post.post_id}}" class="hide" id='commentForm' method="POST">
+    <form action="/listing/{{post.post_id}}" class="hide" id="commentForm" method="POST">
         <label for="comment">Comment:</label><br>
         <textarea id="comment-text" name="comment-text" rows="4" cols="50" required></textarea><br><br>
-        <input type="submit" id='submit-comment' value="Submit">
+        <input type="submit" id="submit-comment" value="Submit"><button type="button" id="cancel-comment">Cancel</button>
     </form>
 
-       
-  
+    <!-- link to claim page -->
+    <!-- <button onclick="window.location.href='{{ url_for('claim_post', post_id=post.post_id) }}'">Claim Item</button> -->
+
+    <form action="/claim_post/{{post.post_id}}" method="POST">
+        <input type="submit" value="Claim Item">
+    
+    
+
 {% endblock %}

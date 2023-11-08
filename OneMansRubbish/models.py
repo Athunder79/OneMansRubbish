@@ -45,16 +45,15 @@ class Post(db.Model):
     post_location = db.mapped_column(db.String(100))
     post_status = db.mapped_column(db.String(100))
    
-
     def __repr__(self):
         return f"Post('{self.post_id}','{self.posted_by}'{self.user_id}','{self.post_title}','{self.post_category}','{self.post_quantity}','{self.post_description}','{self.post_date}','{self.post_location}','{self.post_status}')"
 
 class Claim(db.Model):
     __tablename__ = 'claims'
     claim_id = db.mapped_column(db.Integer,primary_key=True)
-    claim_post_id = db.mapped_column(db.Integer)
-    claim_user_id = db.mapped_column(db.Integer)
-    claim_status = db.mapped_column(db.String(100))
+    claim_post_id = db.mapped_column(db.Integer,db.ForeignKey('post.post_id'),nullable=False)
+    claim_user_id = db.mapped_column(db.Integer,db.ForeignKey('users.id'),nullable=False)
+    claim_status = db.mapped_column(db.String(100),default='Available')
 
     def __repr__(self):
         return f"Claim('{self.claim_id}','{self.claim_post_id}','{self.claim_user_id}','{self.claim_status}')"

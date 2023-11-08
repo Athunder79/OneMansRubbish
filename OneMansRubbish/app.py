@@ -92,7 +92,24 @@ def listing(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('listing.html', post=post, comments=Comments.query.filter_by(comment_post_id=post_id).all())
 
+# change post staus to claimed
+@app.route('/claim_post/<int:post_id>', methods=['GET','POST'])
+@login_required
 
+
+def claim_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if request.method == "POST":
+        claim_post_id = post.post_id
+        claim_user_id = current_user.id
+        claim_status = "claimed"
+        claim = Claim(claim_post_id=claim_post_id, claim_user_id=claim_user_id, claim_status=claim_status)
+        db.session.add(claim)
+        db.session.commit()
+        return redirect(url_for('listing', post_id=post.post_id))
+    
+    print (post.post_id)
+    return render_template('claim.html', post=post, comments=Comments.query.filter_by(comment_post_id=post_id).all())
 
 @app.route('/categories')
 def categories():
@@ -114,10 +131,6 @@ def submit_post():
         post = Post(post_title=post_title, user_id=user_id, post_description=post_description, post_category=post_category, post_quantity=post_quantity, post_location=post_location, post_status=post_status)
         db.session.add(post)
         db.session.commit()
-
-        
-
-
        
         return redirect(url_for('index'))
     return render_template('submit_post.html')
