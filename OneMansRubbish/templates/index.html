@@ -6,12 +6,11 @@
     {% for posts in posted %}
     <p>{{ posts.posted_by.user_name }}</p>
         <h3>{{ posts.post_title }}</h3>
-        <p>{{ posts.post_description }}</p>
         <p>{{ posts.post_category }}</p>
         <p>{{ posts.post_quantity }}</p>
         <p>{{ posts.post_location }}</p>
         <p>{{ posts.post_status }}</p>
-        <p>{{ posts.post_date }}</p>
+        <p>{{ posts.post_date.strftime('%d/%m/20%y Time: %H:%M') }}</p>
         <button onclick="window.location.href='{{ url_for('listing', post_id=posts.post_id) }}'">View Listing</button>
     {% endfor %}
 

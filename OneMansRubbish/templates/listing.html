@@ -9,13 +9,14 @@
     <p>{{ post.post_quantity }}</p>
     <p>{{ post.post_location }}</p>
     <p>{{ post.post_status }}</p>
-    <p>{{ post.post_date }}</p> 
+    <p>{{ post.post_date.strftime('%d/%m/20%y Time: %H:%M') }}</p> 
 
     <h3>Comments</h3>
     {% for comment in comments %}
         <p>{{ comment.comment_by.user_name }} said:</p>
         <p>{{ comment.comment_text }}</p>
-        <p>On:{{ comment.comment_date }}</p>
+        <p>On:{{ comment.comment_date.strftime('%Y/%m/20%d -- %H:%M') }}</p>
+       
         
     {% endfor %}
 
