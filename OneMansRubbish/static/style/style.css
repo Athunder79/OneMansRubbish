@@ -44,3 +44,10 @@ li,a {
     width: 50%;
     padding: 10px;
 }
+
+table, th, td {
+    border-collapse: collapse;
+    border:solid #333;
+    width: 40%;
+    margin: auto;
+}
