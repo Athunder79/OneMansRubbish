@@ -11,7 +11,7 @@
   <header class="navbar">
     <h1>OneMansRubbish</h1>
     {% if current_user.is_authenticated %}
-    <h2>Welcome {{current_user.user_name}}!</h2>
+    <h2 class="current-user">Welcome {{current_user.user_name}}!</h2>
     {% endif %}
 
     <nav>

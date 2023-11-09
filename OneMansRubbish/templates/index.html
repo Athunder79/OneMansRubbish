@@ -4,16 +4,21 @@
 
 
     {% for posts in posted %}
-    <div class="center">
-    <p>{{ posts.posted_by.user_name }}</p>
+    <!-- make image reponsive within the div -->
+    <div class="center medium-margin flex">
+        <div>
         <h3>{{ posts.post_title }}</h3>
-        <p>{{ posts.post_category }}</p>
-        <p>{{ posts.post_quantity }}</p>
-        <p>{{ posts.post_location }}</p>
-        <p>{{ posts.post_status }}</p>
+        <div><img class="img" src="{{ posts.post_img_url }}" alt="Image of {{ posts.post_title }}"></div>
+        </div>
+        <div>
+        <p><strong>Catagory:&nbsp;</strong>{{ posts.post_category }}</p>
+        <p><strong>Qty:&nbsp;</strong>{{ posts.post_quantity }}</p>
+        <p><strong>Location:&nbsp;</strong>{{ posts.post_location }}</p>
+        <p><strong>Status:&nbsp;;</strong>{{ posts.post_status }}</p>
         <p>{{ posts.post_date.strftime('%d/%m/20%y Time: %H:%M') }}</p>
-        <img src="{{ posts.post_img_url }}" alt="Image of {{ posts.post_title }}">
+
         <button onclick="window.location.href='{{ url_for('listing', post_id=posts.post_id) }}'">View Listing</button>
+    </div>
     </div>
     {% endfor %}
 

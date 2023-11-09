@@ -38,6 +38,9 @@ def index():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == "POST":
+        if User.query.filter_by(user_name=request.form['user_name']).first():
+            flash('User name already exists')
+            return redirect(url_for('register'))
         user_name = request.form['user_name']
         password = request.form['password']
         full_name = request.form['full_name']
@@ -92,14 +95,15 @@ def listing(post_id):
     post = Post.query.get_or_404(post_id)
     return render_template('listing.html', post=post, comments=Comments.query.filter_by(comment_post_id=post_id).all(), claims=Claim.query.filter_by(claim_post_id=post_id).all())
 
-# change post staus to claimed
+
 @app.route('/claim_post/<int:post_id>', methods=['GET','POST'])
 @login_required
-
-
 def claim_post(post_id):
     post = Post.query.get_or_404(post_id)
     if request.method == "POST":
+        if current_user.id == post.user_id:
+            flash('You cannot claim your own post')
+            return redirect(url_for('listing', post_id=post.post_id))
         claim_post_id = post.post_id
         claim_user_id = current_user.id
         claim_status = "claimed"
@@ -150,9 +154,19 @@ def submit_post():
 @app.route('/profile')
 @login_required
 def profile():
+    
     return render_template('profile.html', posted=Post.query.filter_by(user_id=current_user.id).all(),
                            claimed=Claim.query.all(),
-                           comments=Comments.query.filter_by(comment_user_id=current_user.id).all())
+                           comments=Comments.query.filter_by(comment_user_id=current_user.id).all(),
+                            direct_message=DirectMessage.query.all(),
+                            users=User.query.filter_by(id=current_user.id).all())
+                    
+
+
+@app.route('/direct_message/<int:post_id>')
+@login_required
+def direct_message():
+    return render_template('direct_message.html', direct_message=DirectMessage.query.all())
 
 if __name__ == "__main__":
     app.run(debug=True)
