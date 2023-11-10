@@ -28,7 +28,6 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-
 @app.route('/')
 def index():
 
@@ -131,11 +130,14 @@ def submit_post():
         user_id = current_user.id
         post_description = request.form['post_description']
         post_category = request.form['post_category']
-        post_quantity = request.form['post_quantity']
+        post_quantity = int(request.form.get('post_quantity'))
         post_location = request.form['post_location']
-     
         post_img_url = request.form['post_img_url']
        
+        if post_quantity < 1:
+            flash('Quantity must be greater than 0')
+            return redirect(url_for('submit_post'))
+
         post = Post(post_title=post_title, 
                     user_id=user_id, 
                     post_description=post_description, 
@@ -161,7 +163,6 @@ def profile():
                             direct_message=DirectMessage.query.all(),
                             users=User.query.filter_by(id=current_user.id).all())
                     
-
 
 @app.route('/direct_message/<int:post_id>')
 @login_required

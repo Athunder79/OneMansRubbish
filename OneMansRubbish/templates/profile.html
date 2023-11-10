@@ -1,19 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 <h2>Profile</h2>
-
+<div id="your-details" class="center medium-margin">
 <table>
     <caption>
         <h2>Your Details</h2>
     </caption>
-    <tbody>
+    <tbody id="your-details-body" class="hide">
     <tr>
         <th scope="col">P</th>
         <th scope="col"></th>
     </tr>
 {% for user in users %}
-    
-
         <tr>
         <td>Username:</td>
         <td>{{ user.user_name }}</td>
@@ -46,12 +44,13 @@
 
     </tbody>
 </table>
-
+</div>
+<div id="your-posts" class="center medium-margin">
 <table>
     <caption>
         <h2>Your Posts</h2>
     </caption>
-    <tbody>
+    <tbody id="your-posts-body" class="hide">
     <tr>
         <th scope="col">Post Name</th>
         <th scope="col">Status</th>
@@ -79,13 +78,14 @@
 
     </tbody>
 </table>
-
+</div>
+<div id="your-claimed-items" class="center medium-margin">
 
 <table>
     <caption>
         <h2>Items you've claimed</h2>
     </caption>
-    <tbody>
+    <tbody id="your-claimed-items-body" class="hide">
     <tr>
         <th scope="col">Post Name</th>
         <th scope="col">Posted by</th>
@@ -104,5 +104,5 @@
 
     </tbody>
 </table>
-
+</div>
 {% endblock %}

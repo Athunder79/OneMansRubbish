@@ -14,10 +14,10 @@
         <p><strong>Catagory:&nbsp;</strong>{{ posts.post_category }}</p>
         <p><strong>Qty:&nbsp;</strong>{{ posts.post_quantity }}</p>
         <p><strong>Location:&nbsp;</strong>{{ posts.post_location }}</p>
-        <p><strong>Status:&nbsp;;</strong>{{ posts.post_status }}</p>
+        <p><strong>Status:&nbsp;</strong>{{ posts.post_status }}</p>
         <p>{{ posts.post_date.strftime('%d/%m/20%y Time: %H:%M') }}</p>
 
-        <button onclick="window.location.href='{{ url_for('listing', post_id=posts.post_id) }}'">View Listing</button>
+        <button type="button" onclick="window.location.href='{{ url_for('listing', post_id=posts.post_id) }}'">View Listing</button>
     </div>
     </div>
     {% endfor %}
