@@ -9,6 +9,8 @@ from flask_login import (
 
 from flask_sqlalchemy import SQLAlchemy
 
+from sqlalchemy import union
+
 from datetime import datetime
 
 from models import User, Post, Claim, Post, Comments, DirectMessage, db
@@ -168,8 +170,17 @@ def profile():
     comments=Comments.query.filter_by(comment_user_id=current_user.id).all()
     direct_message=DirectMessage.query.distinct(DirectMessage.direct_message_reciever_id , DirectMessage.direct_message_sender_id).all()
     users=User.query.filter_by(id=current_user.id).all()
-    
-    return render_template('profile.html', posted=posted,claimed=claimed,comments=comments,direct_message=direct_message,users=users)
+
+    sender_ids_query = (db.session.query(DirectMessage.direct_message_sender_id).distinct().filter_by(direct_message_reciever_id=current_user.id))
+    reciever_ids_query = (db.session.query(DirectMessage.direct_message_reciever_id).distinct().filter_by(direct_message_sender_id=current_user.id))
+
+    direct_message_ids = sender_ids_query.union(reciever_ids_query).all()
+
+    user_ids = [row[0] for row in direct_message_ids]
+
+    message_users = User.query.filter(User.id.in_(user_ids)).all()
+
+    return render_template('profile.html', posted=posted,claimed=claimed,comments=comments,direct_message=direct_message,users=users,message_users=message_users)
                         
                     
 
