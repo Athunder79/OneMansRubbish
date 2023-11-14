@@ -128,7 +128,7 @@ def claim_post(post_id):
 
 @app.route('/categories/')
 def categories():
-    posted = Post.query.distinct(Post.post_category).all()
+    posted = Post.query.distinct(Post.post_category).order_by(Post.post_category).all()
     return render_template('categories.html', posted=posted)
 
 
