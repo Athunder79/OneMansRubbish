@@ -125,8 +125,7 @@
         <td>{{ message.sender.user_name }}</td>
         <td></td>
     </tr>
-    {% endif %}
-    {% if message.sender.user_name == current_user.user_name %}
+    {% elif message.sender.user_name == current_user.user_name%}
     <tr>
         <td></td>
         <td>{{ message.recipient.user_name }}</td>
