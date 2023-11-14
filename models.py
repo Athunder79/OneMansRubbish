@@ -26,13 +26,6 @@ class User(UserMixin, db.Model):
         return f"Users('{self.id}','{self.user_name}','{self.full_name}','{self.password}','{self.phone}','{self.address_line1}','{self.address_line2}','{self.city}','{self.country}')"
 
 
-class Category(db.Model):
-    __tablename__ = 'categories'
-    category_id = db.mapped_column(db.Integer,primary_key=True)
-    category_name = db.mapped_column(db.String(20))
-
-    def __repr__(self):
-        return f"Category('{self.category_id}','{self.category_name}')"
      
 
 class Post(db.Model):
