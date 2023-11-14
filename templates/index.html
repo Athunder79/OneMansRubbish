@@ -2,9 +2,13 @@
 {% block content %}
 <h2>Lastest Items</h2>
 
+{% if selected_category %}
+<h3>Category: {{ selected_category }}</h3>
+{% endif %}
+
 
     {% for posts in posted %}
-    <!-- make image reponsive within the div -->
+
     <div class="center medium-margin flex">
         <div>
         <h3>{{ posts.post_title }}</h3>

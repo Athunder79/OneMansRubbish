@@ -31,7 +31,16 @@ def load_user(user_id):
 @app.route('/')
 def index():
 
-    return render_template("index.html", posted=Post.query.all())
+    selected_category = request.args.get('selected_category')
+
+    if selected_category:
+        posted = Post.query.filter_by(post_category=selected_category).all()
+    else:
+        posted = Post.query.all()
+
+    return render_template("index.html", posted=posted , selected_category=selected_category)
+
+    
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -117,7 +126,7 @@ def claim_post(post_id):
     print (post.post_id)
     return render_template('claim.html', post=post, comments=Comments.query.filter_by(comment_post_id=post_id).all())
 
-@app.route('/categories')
+@app.route('/categories/')
 def categories():
     posted = Post.query.distinct(Post.post_category).all()
     return render_template('categories.html', posted=posted)
