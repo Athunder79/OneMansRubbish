@@ -93,3 +93,23 @@ input {
     height: auto;
     padding-top: 17px;
   }
+
+.sent{
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    width: 300px;
+    margin-left: 40%;
+    
+}
+
+.received{
+    background-color: #f2f2f2;
+    color: #333;
+    padding: 5px;
+    border-radius: 5px;
+    width: 300px;
+    margin-left: 30%;
+    
+}

@@ -119,7 +119,8 @@ def claim_post(post_id):
 
 @app.route('/categories')
 def categories():
-    return render_template('categories.html')
+    posted = Post.query.distinct(Post.post_category).all()
+    return render_template('categories.html', posted=posted)
 
 
 @app.route('/submit_post', methods=['GET', 'POST'])
@@ -164,10 +165,20 @@ def profile():
                             users=User.query.filter_by(id=current_user.id).all())
                     
 
-@app.route('/direct_message/<int:post_id>')
+@app.route('/direct_message/<int:claim_user_id>' , methods=['GET', 'POST'])
 @login_required
-def direct_message():
-    return render_template('direct_message.html', direct_message=DirectMessage.query.all())
+def direct_message(claim_user_id):
+    
+    if request.method == "POST":
+        direct_message_text = request.form['message']
+        direct_message_sender_id = current_user.id
+        direct_message_reciever_id = claim_user_id
+        direct_message = DirectMessage(direct_message_text=direct_message_text, direct_message_sender_id=direct_message_sender_id, direct_message_reciever_id=direct_message_reciever_id)
+        db.session.add(direct_message)
+        db.session.commit()
+        return render_template('direct_message.html',user=User.query.filter_by(id=claim_user_id).all(), direct_message=DirectMessage.query.all())
+   
+    return render_template('direct_message.html',user=User.query.filter_by(id=claim_user_id).all(), direct_message=DirectMessage.query.all())
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Direct Messages</h2>
+
+{% if direct_message %}
+    {%if message.sender.user_name == current_}
+    {% for message in direct_message %}
+        {% if message.sender.user_name == current_user.user_name %}
+        <div class="center medium-margin sent">
+            <p> You wrote:</p>
+            <p>{{ message.direct_message_text }}</p>
+        </div>
+        {% endif %}
+        {% if message.recipient.user_name == current_user.user_name %}
+        <div class="center medium-margin received">
+            <p> From: {{message.recipient.user_name}}&nbsp;&nbsp;{{ message.direct_message_date}}</p>
+           <p> {{ message.direct_message_text }}</p>
+        </div>
+        {% endif %}
+
+    {% endfor %}
+{% endif %}
+{% for user in user %}
+<div class="center medium-margin">
+    <p>{{ user.id }}</p>
+    <form action="/direct_message/{{ user.id }}" method="POST">
+        <label for="message">Message To
+            {{ user.user_name }}
+            {% endfor %}:</label><br>
+        <input type="text" id="message" name="message" required><br><br>
+        <button type="submit">Send</button>
+    </form>
+</div>
+
+{% endblock %}

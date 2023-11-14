@@ -19,6 +19,9 @@ class User(UserMixin, db.Model):
     city = db.mapped_column(db.String(20))
     country = db.mapped_column(db.String(20))
 
+    sent_messages = db.relationship('DirectMessage', back_populates='sender', foreign_keys='DirectMessage.direct_message_sender_id')
+    received_messages = db.relationship('DirectMessage', back_populates='recipient', foreign_keys='DirectMessage.direct_message_reciever_id')
+
     def __repr__(self):
         return f"Users('{self.id}','{self.user_name}','{self.full_name}','{self.password}','{self.phone}','{self.address_line1}','{self.address_line2}','{self.city}','{self.country}')"
 
@@ -44,7 +47,7 @@ class Post(db.Model):
     post_date = db.Column(db.DateTime, default=datetime.now().replace(second=0, microsecond=0))
     post_location = db.mapped_column(db.String(100))
     post_status = db.mapped_column(db.String(100),default='Available')
-    post_img_url = db.mapped_column(db.String(100))
+    post_img_url = db.mapped_column(db.String(100),default='https://via.placeholder.com/150')
    
     def __repr__(self):
         return f"Post('{self.post_id}','{self.posted_by}'{self.user_id}','{self.post_title}','{self.post_category}','{self.post_quantity}','{self.post_description}','{self.post_date}','{self.post_location}','{self.post_status}','{self.post_img_url}')"
@@ -68,7 +71,7 @@ class Comments(db.Model):
     comment_user_id = db.mapped_column(db.Integer,db.ForeignKey('users.id'),nullable=False)
     comment_by = db.relationship('User',backref='comments',lazy=True)
     comment_text = db.mapped_column(db.Text)
-    comment_date = db.mapped_column(db.DateTime,default=datetime.utcnow)
+    comment_date = db.mapped_column(db.DateTime,default=datetime.utcnow().strftime('%Y-%m-%d %H:%M'))
 
     def __repr__(self):
         return f"Comments('{self.comment_id}','{self.comment_post_id}','{self.comment_user_id}','{self.comment_text}','{self.comment_date}')"
@@ -76,8 +79,10 @@ class Comments(db.Model):
 class DirectMessage(db.Model):
     __tablename__ = 'direct_messages'
     direct_message_id = db.mapped_column(db.Integer,primary_key=True)
-    direct_message_sender_id = db.mapped_column(db.Integer)
-    direct_message_reciever_id = db.mapped_column(db.Integer)
+    direct_message_sender_id = db.mapped_column(db.Integer,db.ForeignKey('users.id'),nullable=False)
+    direct_message_reciever_id = db.mapped_column(db.Integer,db.ForeignKey('users.id'),nullable=False)
+    sender = db.relationship('User', back_populates='sent_messages', foreign_keys=[direct_message_sender_id])
+    recipient = db.relationship('User', back_populates='received_messages', foreign_keys=[direct_message_reciever_id])
     direct_message_text = db.mapped_column(db.Text)
     direct_message_date = db.mapped_column(db.DateTime,default=datetime.utcnow)
 
