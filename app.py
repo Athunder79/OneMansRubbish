@@ -30,17 +30,13 @@ def load_user(user_id):
 
 @app.route('/')
 def index():
-
     selected_category = request.args.get('selected_category')
-
     if selected_category:
         posted = Post.query.filter_by(post_category=selected_category).all()
     else:
         posted = Post.query.all()
 
     return render_template("index.html", posted=posted , selected_category=selected_category)
-
-    
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -166,12 +162,15 @@ def submit_post():
 @app.route('/profile')
 @login_required
 def profile():
+
+    posted=Post.query.filter_by(user_id=current_user.id).all()
+    claimed=Claim.query.all()
+    comments=Comments.query.filter_by(comment_user_id=current_user.id).all()
+    direct_message=DirectMessage.query.all()
+    users=User.query.filter_by(id=current_user.id).all()
     
-    return render_template('profile.html', posted=Post.query.filter_by(user_id=current_user.id).all(),
-                           claimed=Claim.query.all(),
-                           comments=Comments.query.filter_by(comment_user_id=current_user.id).all(),
-                            direct_message=DirectMessage.query.all(),
-                            users=User.query.filter_by(id=current_user.id).all())
+    return render_template('profile.html', posted=posted,claimed=claimed,comments=comments,direct_message=direct_message,users=users)
+                        
                     
 
 @app.route('/direct_message/<int:claim_user_id>' , methods=['GET', 'POST'])
@@ -186,9 +185,9 @@ def direct_message(claim_user_id):
         db.session.add(direct_message)
         db.session.commit()
         return render_template('direct_message.html',user=User.query.filter_by(id=claim_user_id).all(), direct_message=DirectMessage.query.all())
-   
+    
     return render_template('direct_message.html',user=User.query.filter_by(id=claim_user_id).all(), direct_message=DirectMessage.query.all())
 
-if __name__ == "__main__":
+if __name__ == "__main__":  
     app.run(debug=True)
 

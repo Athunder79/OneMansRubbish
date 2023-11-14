@@ -64,7 +64,7 @@ class Comments(db.Model):
     comment_user_id = db.mapped_column(db.Integer,db.ForeignKey('users.id'),nullable=False)
     comment_by = db.relationship('User',backref='comments',lazy=True)
     comment_text = db.mapped_column(db.Text)
-    comment_date = db.mapped_column(db.DateTime,default=datetime.utcnow().strftime('%Y-%m-%d %H:%M'))
+    comment_date = db.mapped_column(db.DateTime,default=datetime.utcnow())
 
     def __repr__(self):
         return f"Comments('{self.comment_id}','{self.comment_post_id}','{self.comment_user_id}','{self.comment_text}','{self.comment_date}')"

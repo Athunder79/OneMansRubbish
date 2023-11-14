@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <h2>Profile</h2>
-<div id="your-details" class="center medium-margin">
+<div id="your-details" class="container medium-margin">
 <table>
     <caption>
         <h2>Your Details</h2>
@@ -45,7 +45,7 @@
     </tbody>
 </table>
 </div>
-<div id="your-posts" class="center medium-margin">
+<div id="your-posts" class="container medium-margin">
 <table>
     <caption>
         <h2>Your Posts</h2>
@@ -79,7 +79,7 @@
     </tbody>
 </table>
 </div>
-<div id="your-claimed-items" class="center medium-margin">
+<div id="your-claimed-items" class="container medium-margin">
 
 <table>
     <caption>
@@ -107,7 +107,7 @@
 </table>
 </div>
 
-<div id="your-messages" class="center medium-margin">
+<div id="your-messages" class="container medium-margin">
 <table>
     <caption>
         <h2>Your Messages</h2>
@@ -119,11 +119,18 @@
         <th scope="col">Date</th>
     </tr>
 {% for message in direct_message %}
+    {% if message.recipient.user_name == current_user.user_name %}
+    <tr>
+        <td></td>
+        <td>{{ message.sender.user_name }}</td>
+        <td></td>
+    </tr>
+    {% endif %}
     {% if message.sender.user_name == current_user.user_name %}
     <tr>
-        <td>{{ message.direct_message_text }}</td>
+        <td></td>
         <td>{{ message.recipient.user_name }}</td>
-        <td>{{ message.direct_message_date.strftime('%d/%m/20%y Time: %H:%M') }}</td>
+        <td></td>
     </tr>
     {% endif %}
 {% endfor %}

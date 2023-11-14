@@ -3,7 +3,7 @@
 <h2>Categories</h2>
 {% for post in posted %}
 
-<div class="center medium-margin">
+<div class="container medium-margin">
 <h3><a class="page-link" href="{{ url_for('index', selected_category=post.post_category) }}">{{ post.post_category }}</a></h3>
 
 

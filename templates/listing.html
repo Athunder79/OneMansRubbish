@@ -2,7 +2,7 @@
 {% block content %}
 
 <h2>Listing</h2>
-<div class="center">
+<div class="container">
     <h3>{{ post.post_title }}</h3>
     <img src="{{ post.post_img_url }}" alt="Image of {{ post.post_title }}">
     <h3>Description</h3>
@@ -17,16 +17,16 @@
     <p><strong>Posted By: </strong>{{ post.posted_by.user_name }} <strong>On: </strong>{{
         post.post_date.strftime('%d-%m-20%y Time: %H:%M') }}</p>
 </div>
-<div class="center">
+<div class="container">
     <h3>Comments</h3>
     {% for comment in comments %}
-    <div class="center">
+    <div class="container">
         <p>{{ comment.comment_by.user_name }} said:</p>
         <p>{{ comment.comment_text }}</p>
         <p>On:{{ comment.comment_date.strftime(' %d-%m-20%Y -- %H:%M') }}</p>
     </div>
     {% endfor %}
-    <div class="center">
+    <div class="container">
 
         <button type="submit" action id="add-comment" class="show">Add Comment</button>
 
