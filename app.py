@@ -166,7 +166,7 @@ def profile():
     posted=Post.query.filter_by(user_id=current_user.id).all()
     claimed=Claim.query.all()
     comments=Comments.query.filter_by(comment_user_id=current_user.id).all()
-    direct_message=DirectMessage.query.distinct.all()
+    direct_message=DirectMessage.query.distinct(DirectMessage.direct_message_reciever_id).all()
     users=User.query.filter_by(id=current_user.id).all()
     
     return render_template('profile.html', posted=posted,claimed=claimed,comments=comments,direct_message=direct_message,users=users)
