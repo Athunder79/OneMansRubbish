@@ -199,6 +199,23 @@ def direct_message(claim_user_id):
     
     return render_template('direct_message.html',user=User.query.filter_by(id=claim_user_id).all(), direct_message=DirectMessage.query.all())
 
+@app.route('/edit_post/<int:post_id>', methods=['GET', 'POST'])
+@login_required
+def edit_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if request.method == "POST":
+        print(1+1)
+        post.post_title = request.form['post_title']
+        post.post_description = request.form['post_description']
+        post.post_category = request.form['post_category']
+        post.post_quantity = request.form['post_quantity']
+        post.post_location = request.form['post_location']
+        post.post_img_url = request.form['post_img_url']
+        post.post_status = request.form['post_status']
+        db.session.commit()
+       
+        return redirect(url_for('listing', post_id=post.post_id))
+    return render_template('edit_post.html', post=post)
+
 if __name__ == "__main__":  
     app.run(debug=True)
-

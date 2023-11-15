@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container medium-margin">
+
+    <h1>Edit Post</h1>
+
+    <form action="{{ url_for('edit_post', post_id=post.post_id) }}" method="POST">
+
+        <label for="post_title">Title:</label>
+        <input type="text" id="post_title" name="post_title" value="{{ post.post_title }}" required><br><br>
+
+        <label for="post_category">Category:</label>
+        <input type="text" id="post_category" name="post_category" value="{{ post.post_category }}" required><br><br>
+
+        <label for="post_status">Status:</label>
+        <select id="post_status" name="post_status" required>
+            <option value="Available" {% if post.post_status == "Available" %} selected {% endif %}>Available</option>
+            <option value="Claimed" {% if post.post_status == "Reserved-Pending Collection" %} selected {% endif %}>Claimed</option>
+            <option value="Completed" {% if post.post_status == "Completed" %} selected {% endif %}>Completed</option>
+        </select><br><br>
+
+        <label for="post_quantity">Quantity:</label>
+        <input type="number" min="0" id="post_quantity" name="post_quantity" value="{{ post.post_quantity }}" required><br><br>
+
+        <label for="post_description">Description:</label><br>
+        <textarea id="post_description" name="post_description" rows="4" cols="50" required>{{ post.post_description }}</textarea><br>
+
+        <label for="post_location">Location:</label>
+        <input type="text" id="post_location" name="post_location" value="{{ post.post_location }}" required><br><br>
+
+        <label for="post_img_url">Img URL:</label>
+        <input type="text" id="post_img_url" name="post_img_url" value="{{ post.post_img_url }}"><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+
+{% endblock %}

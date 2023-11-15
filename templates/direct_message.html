@@ -30,7 +30,6 @@
 
 {% for user in user %}
 <div class="container medium-margin">
-    <p>{{ user.id }}</p>
     <form action="/direct_message/{{ user.id }}" method="POST">
         <label for="message">Message To
             {{ user.user_name }}

@@ -64,15 +64,16 @@
                 <td>{{ posts.post_title }}</td>
                 <td>{{ posts.post_status }}</td>
                 <td>{{ posts.post_quantity }}</td>
-                <td>
+                <td>    
                     {% for claim in claimed %}
                     {% if claim.claim_post_id == posts.post_id %}
                     <a class="page-link" href="/direct_message/{{ claim.claim_user_id }}">{{ claim.claimed_by.user_name
                         }}</a><br>
-                    {% endif %}
-                    {% endfor %}
+                   
                 </td>
-                <td></td>
+                <td><a class="page-link" href="/edit_post/{{ posts.post_id }}">{{  posts.post_id }}</a> </td>
+                {% endif %}
+                {% endfor %}
             </tr>
             {% endfor %}
 
@@ -113,14 +114,15 @@
         <caption>
             <h2>Your Messages With</h2>
         </caption>
-        <tbody id="your-messages-body" class="show">
+        <tbody id="your-messages-body" class="hide">
+
             <tr>
-                <th scope="col">From</th>
-            </tr>
             {% for message in message_users %}
-            <tr>
+             {%for user in users %}
                 <td>{{ message.user_name }}</td>
+                <td><a class="page-link" href="/direct_message/{{ message.id }}">View Messages</a></td>
             </tr>
+            {% endfor %}
             {% endfor %}
 
         </tbody>

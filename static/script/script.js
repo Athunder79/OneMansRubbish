@@ -8,6 +8,7 @@ addEventListener('load', function () {
     let yourDetails = document.getElementById("your-details");
     let yourPosts = document.getElementById("your-posts");
     let yourClaimedItems = document.getElementById("your-claimed-items");
+    let yourMessages = document.getElementById("your-messages");
 
 
 
@@ -31,6 +32,9 @@ addEventListener('load', function () {
 
     if (yourClaimedItems != null)
         yourClaimedItems.addEventListener("click", ShowHideClaimedItems);
+
+    if (yourMessages != null)
+        yourMessages.addEventListener("click", ShowHideYourMessages);
 
 
 })
@@ -69,5 +73,9 @@ function ShowHideYourPosts() {
 
 function ShowHideClaimedItems() {
     document.getElementById("your-claimed-items-body").classList.toggle("show")
+}
+
+function ShowHideYourMessages() {
+    document.getElementById("your-messages-body").classList.toggle("show")
 }
 
