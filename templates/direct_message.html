@@ -6,34 +6,36 @@
 
 
 {% if direct_message %}
-    {% for user in user %}
-        {% for message in direct_message %}
-            {% if (message.sender.user_name == current_user.user_name) and (message.recipient.user_name == user.user_name) %}
-                <div class="container medium-margin sent">
-                    <p> You wrote:</p>
-                    <p>{{ message.direct_message_text }}</p>
-                </div>
-            {% endif %}
+{% for user in user %}
+{% for message in direct_message %}
+{% if (message.sender.user_name == current_user.user_name) and (message.recipient.user_name == user.user_name) %}
+<div class="container medium-margin sent">
+    <p class="message-user"> You:&nbsp;&nbsp;&nbsp;<span class="dates">{{ message.direct_message_date.strftime('%d-%m-%y
+            Time: %H:%M')}}</span></p>
+    <p>{{ message.direct_message_text }}</p>
+</div>
+{% endif %}
 
-            {% if (message.recipient.user_name == current_user.user_name) and (message.sender.user_name == user.user_name) %}
+{% if (message.recipient.user_name == current_user.user_name) and (message.sender.user_name == user.user_name) %}
 
-                <div class="container medium-margin received">
-                    <p> {{message.sender.user_name}}&nbsp;wrote {{ message.direct_message_date}}</p>
-                    <p> {{ message.direct_message_text }}</p>
-                </div>
-            {% endif %}
-        {% endfor %}
+<div class="container medium-margin received">
+    <p class="message-user"> {{message.sender.user_name}}:&nbsp;&nbsp;&nbsp;<span class="dates">{{
+            message.direct_message_date.strftime('%d-%m-%y Time: %H:%M')}}</span></p>
+    <p> {{ message.direct_message_text }}</p>
+</div>
+{% endif %}
+{% endfor %}
 
-    {% endfor %}
+{% endfor %}
 {% endif %}
 
 
 {% for user in user %}
 <div class="container medium-margin">
     <form action="/direct_message/{{ user.id }}" method="POST">
-        <label for="message">Message To
+        <label class="message-user" for="message">Message To
             {{ user.user_name }}
-            {% endfor %}:</label><br>
+            {% endfor %}:</label><br><br>
         <input type="text" id="message" name="message" required><br><br>
         <button type="submit">Send</button>
     </form>

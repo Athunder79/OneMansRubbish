@@ -2,29 +2,38 @@
 {% block content %}
 <h2>Lastest Items</h2>
 
+<div class="welcome medium-margin">
+    <h3>One man's rubbish is another man's treasure</h3>
+    <p>We are a community-driven platform where the spirit of giving thrives!</p>
+    <p>Our mission is to connect individuals who have items they no longer need with those in search of treasures, all for free.</p>
+    <p>Join us in creating a more sustainable and compassionate world by reducing landfill and helping to reuse unwanted items.</p>
+    <p>Happy FreeCycling!</p>
+</div>
+
 {% if selected_category %}
-<h3>Category: {{ selected_category }}</h3>
+<h3>Fliter by:&nbsp;<a class="filter" href="{{url_for('index')}}"> {{ selected_category }} &nbsp; &#10005; </a></h3>
 {% endif %}
 
 
-    {% for posts in posted %}
+{% for posts in posted %}
 
-    <div class="container medium-margin flex">
-        <div>
-        <h3>{{ posts.post_title }}</h3>
+<div class="container medium-margin flex">
+    <div>
+        <h3 class="title-left">{{ posts.post_title }}</h3>
         <div><img class="img" src="{{ posts.post_img_url }}" alt="Image of {{ posts.post_title }}"></div>
-        </div>
-        <div>
+    </div>
+    <div>
         <p><strong>Category:&nbsp;</strong>{{ posts.post_category }}</p>
         <p><strong>Qty:&nbsp;</strong>{{ posts.post_quantity }}</p>
         <p><strong>Location:&nbsp;</strong>{{ posts.post_location }}</p>
         <p><strong>Status:&nbsp;</strong>{{ posts.post_status }}</p>
         <p>{{ posts.post_date.strftime('%d/%m/20%y Time: %H:%M') }}</p>
-        </div>
-        <div>
-        <button type="button" onclick="window.location.href='{{ url_for('listing', post_id=posts.post_id) }}'">View Listing</button>
-        </div>
     </div>
-    {% endfor %}
+    <div>
+        <button class="button-front-page" type="button" onclick="window.location.href='{{ url_for('listing', post_id=posts.post_id) }}'">View
+            Listing</button>
+    </div>
+</div>
+{% endfor %}
 
 {% endblock %}

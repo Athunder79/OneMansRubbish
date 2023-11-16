@@ -75,7 +75,7 @@ def login():
             print(current_user.id)
             return redirect(url_for("index"))
         else:
-            flash('Invalid Credentials')
+            flash('Username or password are incorrect')
             return redirect(url_for('login'))
     return render_template('login.html')
 
@@ -110,11 +110,13 @@ def claim_post(post_id):
         if current_user.id == post.user_id:
             flash('You cannot claim your own post')
             return redirect(url_for('listing', post_id=post.post_id))
+        
         claim_post_id = post.post_id
         claim_user_id = current_user.id
         claim_status = "claimed"
         claim = Claim(claim_post_id=claim_post_id, claim_user_id=claim_user_id, claim_status=claim_status)
         post.post_quantity = post.post_quantity - 1
+        
         if post.post_quantity == 0:
             post.post_status = "Reserved-Pending Collection"
         db.session.add(claim)
@@ -146,14 +148,17 @@ def submit_post():
             flash('Quantity must be greater than 0')
             return redirect(url_for('submit_post'))
 
+        if post_img_url == "":
+            post_img_url = "https://athunder79.github.io/Project/Module%202/images/noimage.jpg"
+            
         post = Post(post_title=post_title, 
                     user_id=user_id, 
                     post_description=post_description, 
                     post_category=post_category, 
                     post_quantity=post_quantity, 
                     post_location=post_location, 
-                   
                     post_img_url=post_img_url)
+        print(post_img_url)
         db.session.add(post)
         db.session.commit()
        
@@ -164,7 +169,6 @@ def submit_post():
 @app.route('/profile')
 @login_required
 def profile():
-
     posted=Post.query.filter_by(user_id=current_user.id).all()
     claimed=Claim.query.all()
     comments=Comments.query.filter_by(comment_user_id=current_user.id).all()
@@ -175,7 +179,6 @@ def profile():
     reciever_ids_query = (db.session.query(DirectMessage.direct_message_reciever_id).distinct().filter_by(direct_message_sender_id=current_user.id))
 
     direct_message_ids = sender_ids_query.union(reciever_ids_query).all()
-
     user_ids = [row[0] for row in direct_message_ids]
 
     message_users = User.query.filter(User.id.in_(user_ids)).all()

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <link rel="stylesheet" href="/static/style/style.css">
   <script src="/static/script/script.js"></script>
 </head>
+
 <body>
   <header class="navbar">
     <h1>OneMansRubbish</h1>
@@ -16,22 +18,30 @@
 
     <nav>
       <ul>
-        <li><a href="{{ url_for('index') }}">Home</a></li>
-        <li><a href="{{ url_for('submit_post') }}">Add Item</a></li>
-        <li><a href="{{ url_for('categories') }}">Catagories</a></li>
+        <li><a href="{{ url_for('index') }}">HOME</a></li>
+        <li><a href="{{ url_for('submit_post') }}">ADD ITEM</a></li>
+        <li><a href="{{ url_for('categories') }}">CATEGORIES</a></li>
         {% if current_user.is_authenticated %}
-        <li><a href="{{ url_for('profile') }}">Profile</a></li>
-        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        <li><a href="{{ url_for('profile') }}">PROFILE</a></li>
+        <li><a href="{{ url_for('logout') }}">LOGOUT</a></li>
         {% else %}
-        <li><a href="{{ url_for('login') }}">Login</a></li>
-        <li><a href="{{ url_for('register') }}">Register</a></li>
+        <li><a href="{{ url_for('login') }}">LOGIN</a></li>
+        <li><a href="{{ url_for('register') }}">REGISTER</a></li>
         {% endif %}
       </ul>
     </nav>
   </header>
   <main>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          {% for message in messages %}
+            <p class="flashes">{{ message }}</p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
     {% block content %}
     {% endblock %}
   </main>
 </body>
+
 </html>

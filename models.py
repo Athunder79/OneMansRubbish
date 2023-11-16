@@ -26,8 +26,6 @@ class User(UserMixin, db.Model):
         return f"Users('{self.id}','{self.user_name}','{self.full_name}','{self.password}','{self.phone}','{self.address_line1}','{self.address_line2}','{self.city}','{self.country}')"
 
 
-     
-
 class Post(db.Model):
     __tablename__ = 'post'
     post_id = db.mapped_column(db.Integer,primary_key=True)
@@ -40,7 +38,7 @@ class Post(db.Model):
     post_date = db.Column(db.DateTime, default=datetime.now().replace(second=0, microsecond=0))
     post_location = db.mapped_column(db.String(100))
     post_status = db.mapped_column(db.String(100),default='Available')
-    post_img_url = db.mapped_column(db.String(100),default='https://via.placeholder.com/150')
+    post_img_url = db.mapped_column(db.String(600),default='https://placehold.co/600x400',nullable=False)
    
     def __repr__(self):
         return f"Post('{self.post_id}','{self.posted_by}'{self.user_id}','{self.post_title}','{self.post_category}','{self.post_quantity}','{self.post_description}','{self.post_date}','{self.post_location}','{self.post_status}','{self.post_img_url}')"

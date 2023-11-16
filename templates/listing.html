@@ -4,14 +4,14 @@
 <h2>Listing</h2>
 <div class="container">
     <h3>{{ post.post_title }}</h3>
-    <img src="{{ post.post_img_url }}" alt="Image of {{ post.post_title }}">
+    <img class="img-large" src="{{ post.post_img_url }}" alt="Image of {{ post.post_title }}">
     <h3>Description</h3>
     <p>{{ post.post_description }}</p>
     <p><strong>Category:</strong> {{ post.post_category }} &nbsp;<strong> Qty: </strong>{{ post.post_quantity }}</p>
     <p><strong>Location:</strong> {{ post.post_location }}</p>
     <p><strong>Status:&nbsp;</strong><span id="status">{{ post.post_status }}
             {% if claim in claims %}
-                {{ claim.claimed_by.user_name }}
+            {{ claim.claimed_by.user_name }}
             {% endif %}
         </span></p>
     <p><strong>Posted By: </strong>{{ post.posted_by.user_name }} <strong>On: </strong>{{
@@ -27,9 +27,7 @@
     </div>
     {% endfor %}
     <div class="container">
-
         <button type="submit" action id="add-comment" class="show">Add Comment</button>
-
         <form action="/listing/{{post.post_id}}" class="hide" id="commentForm" method="POST">
             <label for="comment">Comment:</label><br>
             <textarea id="comment-text" name="comment-text" rows="4" cols="50" required></textarea><br><br>
