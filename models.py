@@ -46,8 +46,8 @@ class Post(db.Model):
 class Claim(db.Model):
     __tablename__ = 'claims'
     claim_id = db.mapped_column(db.Integer,primary_key=True)
-    claim_post_id = db.mapped_column(db.Integer,db.ForeignKey('post.post_id'),nullable=False)
-    claim_user_id = db.mapped_column(db.Integer,db.ForeignKey('users.id'),nullable=False)
+    claim_post_id = db.mapped_column(db.Integer,db.ForeignKey('post.post_id'),nullable=True)
+    claim_user_id = db.mapped_column(db.Integer,db.ForeignKey('users.id'),nullable=True)
     claimed_by = db.relationship('User',backref='claims',lazy=True)
     claimed_post = db.relationship('Post',backref='claims',lazy=True)
     claim_status = db.mapped_column(db.String(100),default='Available')

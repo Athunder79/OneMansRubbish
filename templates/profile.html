@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <h2>Profile</h2>
+<!-- current user details -->
 <div id="your-details" class="container medium-margin">
     <table>
         <caption>
@@ -41,6 +42,7 @@
         </tbody>
     </table>
 </div>
+<!-- current users posts -->
 <div id="your-posts" class="container medium-margin">
     <table>
         <caption>
@@ -50,32 +52,35 @@
             <tr>
                 <th scope="col">Post Name</th>
                 <th scope="col">Status</th>
-                <th scope="col">Qty Remaining</th>
+                <th scope="col">Qty</th>
                 <th scope="col">Claimed By</th>
-                <th scope="col"></th>
+                <th scope="col">Action</th>
             </tr>
             {% for posts in posted %}
 
             <tr>
+
                 <td>{{ posts.post_title }}</td>
                 <td>{{ posts.post_status }}</td>
                 <td class="center-table-numbers">{{ posts.post_quantity }}</td>
+                <!-- users that have resevered current users items -->
                 <td>
                     {% for claim in claimed %}
                     {% if claim.claim_post_id == posts.post_id %}
-                    <a class="page-link" href="/direct_message/{{ claim.claim_user_id }}">{{ claim.claimed_by.user_name}}</a><br>
+                    <a class="your-post-user" href="/direct_message/{{ claim.claim_user_id }}">{{
+                        claim.claimed_by.user_name}} &#9993;</a><br>
+                    {% endif %}
+                    {% endfor %}
                 </td>
-                {% endif %}
-                {% endfor %}
-                <td><a class="page-link" href="/edit_post/{{ posts.post_id }}">Edit Post</a> </td>
+                <td><a class="your-post-user" href="/edit_post/{{ posts.post_id }}">Edit Post</a> </td>
 
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
+<!-- items current user has resevered  -->
 <div id="your-claimed-items" class="container medium-margin">
-
     <table>
         <caption>
             <h2>Items you've claimed</h2>
@@ -88,11 +93,20 @@
 
             {% for claim in claimed %}
             {% if claim.claim_user_id == current_user.id %}
+            <!-- check if post has been deleted -->
+            {% if claim.claim_post_id == None %}
+            <tr>
+                <td>Item has been deleted</td>
+                <td>Item has been deleted</td>
+            </tr>
+            {% else %}
 
             <tr>
                 <td>{{ claim.claimed_post.post_title }}</td>
-                <td>{{ claim.claimed_post.posted_by.user_name }}</td>
+                <td><a class="your-post-user" href="/direct_message/{{ claim.claim_post_id }}">
+                    {{ claim.claimed_post.posted_by.user_name }} &#9993;</a><br></td>
             </tr>
+            {% endif %}
             {% endif %}
             {% endfor %}
 
@@ -110,10 +124,10 @@
         <tbody id="your-messages-body" class="hide">
 
             <tr>
-            {% for message in message_users %}
-             {%for user in users %}
+                {% for message in message_users %}
+                {%for user in users %}
                 <td>{{ message.user_name }}</td>
-                <td><a class="page-link" href="/direct_message/{{ message.id }}">View Messages</a></td>
+                <td><a class="your-post-user" href="/direct_message/{{ message.id }}">View Messages</a></td>
             </tr>
             {% endfor %}
             {% endfor %}

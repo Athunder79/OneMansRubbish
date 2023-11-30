@@ -35,8 +35,13 @@
         <label for="post_img_url">Img URL:</label>
         <input type="text" id="post_img_url" name="post_img_url" value="{{ post.post_img_url }}"><br><br>
 
-        <button type="submit">Submit</button>
+        <button type="submit">Submit Changes</button>
     </form>
+    <p>OR</p>
+    <form action="{{ url_for('delete_post', post_id=post.post_id) }}" method="POST">
+        <button type="submit">Delete Post</button>
+    </form>
+</div>
 
 
     {% endblock %}

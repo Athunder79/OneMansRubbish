@@ -29,9 +29,10 @@ login_manager.login_view = "login"
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
+# home page
 @app.route('/')
 def index():
+    # list posted items
     selected_category = request.args.get('selected_category')
     if selected_category:
         posted = Post.query.filter_by(post_category=selected_category).all()
@@ -44,9 +45,11 @@ def index():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == "POST":
+        # check if user name already exists
         if User.query.filter_by(user_name=request.form['user_name']).first():
             flash('User name already exists')
             return redirect(url_for('register'))
+        # register user
         user_name = request.form['user_name']
         password = request.form['password']
         full_name = request.form['full_name']
@@ -98,14 +101,14 @@ def listing(post_id):
         db.session.add(comments)
         db.session.commit()
        
-    post = Post.query.get_or_404(post_id)
+    post = Post.query.get(post_id)
     return render_template('listing.html', post=post, comments=Comments.query.filter_by(comment_post_id=post_id).all(), claims=Claim.query.filter_by(claim_post_id=post_id).all())
 
 
 @app.route('/claim_post/<int:post_id>', methods=['GET','POST'])
 @login_required
 def claim_post(post_id):
-    post = Post.query.get_or_404(post_id)
+    post = Post.query.get(post_id)
     if request.method == "POST":
         if current_user.id == post.user_id:
             flash('You cannot claim your own post')
@@ -205,7 +208,7 @@ def direct_message(claim_user_id):
 @app.route('/edit_post/<int:post_id>', methods=['GET', 'POST'])
 @login_required
 def edit_post(post_id):
-    post = Post.query.get_or_404(post_id)
+    post = Post.query.get(post_id)
     if request.method == "POST":
         print(1+1)
         post.post_title = request.form['post_title']
@@ -219,6 +222,16 @@ def edit_post(post_id):
        
         return redirect(url_for('listing', post_id=post.post_id))
     return render_template('edit_post.html', post=post)
+
+
+@app.route('/delete_post/<int:post_id>', methods=['GET', 'POST'])
+@login_required
+def delete_post(post_id):
+    post = Post.query.get(post_id)
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('profile'))
+
 
 if __name__ == "__main__":  
     app.run(debug=True)

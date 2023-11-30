@@ -4,7 +4,7 @@
 <h2>Direct Messages with {{ user.user_name }}</h2>
 {% endfor %}
 
-
+<div class="messages-container">
 {% if direct_message %}
 {% for user in user %}
 {% for message in direct_message %}
@@ -28,10 +28,11 @@
 
 {% endfor %}
 {% endif %}
+</div>
 
 
 {% for user in user %}
-<div class="container medium-margin">
+<div class="write-message medium-margin">
     <form action="/direct_message/{{ user.id }}" method="POST">
         <label class="message-user" for="message">Message To
             {{ user.user_name }}
