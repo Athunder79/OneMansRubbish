@@ -91,9 +91,10 @@ def logout():
 
 @app.route('/listing/<int:post_id>', methods=['GET','POST'])
 def listing(post_id):
-   
     if request.method == "POST":
-        # todo: check user logged in
+        if current_user.is_anonymous:
+            flash('You must be logged in to comment')
+            return redirect(url_for('listing', post_id=post_id))
         comment_text = request.form['comment-text']
         comment_user_id = current_user.id
         comment_post_id = post_id

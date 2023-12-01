@@ -27,7 +27,7 @@
         <p>On:{{ comment.comment_date.strftime(' %d-%m-%Y -- %H:%M') }}</p>
     </div>
     {% endfor %}
-    <div class="container">
+    <div>
         <form action="/listing/{{post.post_id}}" class="hide" id="commentForm" method="POST">
             <label for="comment">Comment:</label><br>
             <textarea id="comment-text" name="comment-text" rows="4" cols="50" required></textarea><br><br>
