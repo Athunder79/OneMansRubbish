@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 {% for user in user %}
-<h2>Direct Messages with {{ user.user_name }}</h2>
+<div class="direct-message-header">
+<h3>Direct Messages with {{ user.user_name }}</h3>
+</div>
 {% endfor %}
 
 <div class="messages-container">
@@ -33,11 +35,11 @@
 
 {% for user in user %}
 <div class="write-message medium-margin">
-    <form action="/direct_message/{{ user.id }}" method="POST">
+    <form action="/direct_message/{{ user.id }}" method="POST"> 
         <label class="message-user" for="message">Message To
             {{ user.user_name }}
             {% endfor %}:</label><br><br>
-        <input type="text" id="message" name="message" required><br><br>
+        <textarea type="text" id="message" name="message" required></textarea><br>
         <button type="submit">Send</button>
     </form>
 </div>

@@ -14,32 +14,36 @@
             {{ claim.claimed_by.user_name }}
             {% endif %}
         </span></p>
-    <p><strong>Posted By: </strong>{{ post.posted_by.user_name }} <strong>On: </strong>{{
-        post.post_date.strftime('%d-%m-20%y Time: %H:%M') }}</p>
+    <p>
+        <span class="message-user">Posted By: {{ post.posted_by.user_name }}</span>
+        <span class="dates">{{ post.post_date.strftime('%d-%m-20%y Time: %H:%M') }}</span>
+    </p>
+
+    <form action="/claim_post/{{post.post_id}}" method="POST">
+        <button id="claimButton" class="show" type="submit" value="Claim Item">Reserve Item</button>
+    </form>
 </div>
 
 <div class="container">
     <h3>Comments</h3>
     {% for comment in comments %}
     <div class="container">
-        <p>{{ comment.comment_by.user_name }} said:</p>
+        <p>
+            <span class="message-user">{{ comment.comment_by.user_name }} said:</span>
+            <span class="dates">{{ comment.comment_date.strftime('%d-%m-20%y Time: %H:%M') }}</span>
+        </p>
         <p>{{ comment.comment_text }}</p>
-        <p>On:{{ comment.comment_date.strftime(' %d-%m-%Y -- %H:%M') }}</p>
     </div>
     {% endfor %}
-    <div>
-        <form action="/listing/{{post.post_id}}" class="hide" id="commentForm" method="POST">
+    <div class="hide" id="commentForm">
+        <form action="/listing/{{post.post_id}}"   method="POST">
             <label for="comment">Comment:</label><br>
             <textarea id="comment-text" name="comment-text" rows="4" cols="50" required></textarea><br><br>
-            <input class="button" type="submit" id="submit-comment" value="Submit">
+            <button type="submit" id="submit-comment">Submit</button>
             <button type="button" id="cancel-comment">Cancel</button>
         </form>
     </div>
     <button type="submit" action id="add-comment" class="show">Add Comment</button>
-
-    <form action="/claim_post/{{post.post_id}}" method="POST">
-        <button id="claimButton" class="show" type="submit" value="Claim Item">Claim</button>
-    </form>
 </div>
 
 {% endblock %}

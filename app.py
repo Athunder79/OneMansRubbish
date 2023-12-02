@@ -122,7 +122,7 @@ def claim_post(post_id):
         post.post_quantity = post.post_quantity - 1
         
         if post.post_quantity == 0:
-            post.post_status = "Reserved-Pending Collection"
+            post.post_status = "Reserved"
         db.session.add(claim)
         db.session.commit()
         return redirect(url_for('listing', post_id=post.post_id))

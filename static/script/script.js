@@ -50,7 +50,7 @@ function hideClaimButton() {
 }
 
 function openComment() {
-    document.getElementById("commentForm").className = "show";
+    document.getElementById("commentForm").className = "container";
     document.getElementById("add-comment").className = "hide";
 }
 
