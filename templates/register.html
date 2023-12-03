@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container-form medium-margin">
+<div class="container medium-margin">
     <h2>Register</h2>
 
-    <p>Already have an account? <a class="page-link" href="{{ url_for('login') }}"><strong>Login Here</strong></a></p>
+    <p>Already have an account? <a class="page-link" href="{{ url_for('login') }}">Login</a></p>
     <form method="POST" action="{{ url_for('register') }}">
         <label for="username">Username:</label>
         <input type="text" id="username" name="user_name" required><br><br>

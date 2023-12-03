@@ -2,7 +2,7 @@
 {% block content %}
 
 <h2>Listing</h2>
-<div class="container-large">
+<div class="container">
     <h3>{{ post.post_title }}</h3>
     <img class="img-large" src="{{ post.post_img_url }}" alt="Image of {{ post.post_title }}">
     <h3>Description</h3>
@@ -24,7 +24,7 @@
     </form>
 </div>
 
-<div class="container-large">
+<div class="container">
     <h3>Comments</h3>
     {% for comment in comments %}
     <div class="container">
