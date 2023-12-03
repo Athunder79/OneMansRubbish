@@ -6,6 +6,7 @@ body {
     padding: 0;
     font-family: sans-serif;
     background-image: url(https://athunder79.github.io/Project/Module%202/images/body-bg.jpg);
+    background-attachment: fixed;
     background-size: cover;
     background-color: #f0efef;
     background-blend-mode: overlay;
