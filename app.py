@@ -38,6 +38,9 @@ def index():
         posted = Post.query.filter_by(post_category=selected_category).all()
     else:
         posted = Post.query.all()
+        
+    # display newest first
+    posted = posted[::-1]
 
     return render_template("index.html", posted=posted , selected_category=selected_category)
 

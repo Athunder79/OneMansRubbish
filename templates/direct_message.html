@@ -2,40 +2,41 @@
 {% block content %}
 {% for user in user %}
 <div class="direct-message-header">
-<h3>Direct Messages with {{ user.user_name }}</h3>
+    <h3>Direct Messages with {{ user.user_name }}</h3>
 </div>
 {% endfor %}
 
 <div class="messages-container">
-{% if direct_message %}
-{% for user in user %}
-{% for message in direct_message %}
-{% if (message.sender.user_name == current_user.user_name) and (message.recipient.user_name == user.user_name) %}
-<div class="container medium-margin sent">
-    <p class="message-user"> You:&nbsp;&nbsp;&nbsp;<span class="dates">{{ message.direct_message_date.strftime('%d-%m-%y
-            Time: %H:%M')}}</span></p>
-    <p>{{ message.direct_message_text }}</p>
-</div>
-{% endif %}
+    {% if direct_message %}
+    {% for user in user %}
+    {% for message in direct_message %}
+    {% if (message.sender.user_name == current_user.user_name) and (message.recipient.user_name == user.user_name) %}
+    <div class="sent container medium-margin">
+        <p class="message-user"> You:&nbsp;&nbsp;&nbsp;<span class="dates">{{
+                message.direct_message_date.strftime('%d-%m-%y
+                Time: %H:%M')}}</span></p>
+        <p>{{ message.direct_message_text }}</p>
+    </div>
+    {% endif %}
 
-{% if (message.recipient.user_name == current_user.user_name) and (message.sender.user_name == user.user_name) %}
+    {% if (message.recipient.user_name == current_user.user_name) and (message.sender.user_name == user.user_name) %}
 
-<div class="container medium-margin received">
-    <p class="message-user"> {{message.sender.user_name}}:&nbsp;&nbsp;&nbsp;<span class="dates">{{
-            message.direct_message_date.strftime('%d-%m-%y Time: %H:%M')}}</span></p>
-    <p> {{ message.direct_message_text }}</p>
-</div>
-{% endif %}
-{% endfor %}
+    <div class="container medium-margin received">
+        <p class="message-user"> {{message.sender.user_name}}:&nbsp;&nbsp;&nbsp;<span class="dates">{{
+                message.direct_message_date.strftime('%d-%m-%y Time: %H:%M')}}</span></p>
+        <p> {{ message.direct_message_text }}</p>
+    </div>
+    {% endif %}
+    {% endfor %}
 
-{% endfor %}
-{% endif %}
+    {% endfor %}
+    {% endif %}
 </div>
 
 
 {% for user in user %}
 <div class="write-message medium-margin">
-    <form action="/direct_message/{{ user.id }}" method="POST"> 
+    <form action="/direct_message/{{ user.id }}" method="POST">
         <label class="message-user" for="message">Message To
             {{ user.user_name }}
             {% endfor %}:</label><br><br>

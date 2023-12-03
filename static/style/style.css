@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 
 
 body {
@@ -8,10 +8,10 @@ body {
     background-image: url(https://athunder79.github.io/Project/Module%202/images/body-bg.jpg);
     background-size: cover;
     background-color: #f0efef;
-    background-blend-mode: overlay; 
-    font-family: 'Montserrat', sans-serif;
-
+    background-blend-mode: overlay;
+    font-family: "montserrat", sans-serif;
 }
+
 /* javascript show and hide classes */
 .hide {
     display: none;
@@ -30,7 +30,7 @@ body {
     align-items: center;
 }
 
-.flex > div {
+.flex>div {
     flex: 2;
 }
 
@@ -68,19 +68,21 @@ a {
 
 /* content */
 
-h2,h3 {
-       text-align: center;
+h2,
+h3 {
+    text-align: center;
 }
 
 .title-left {
     text-align: left;
+    text-decoration: underline;
 }
 
 /* content containers */
 
 
 .container {
-    box-shadow: 0px 0px 10px 1px #141313;
+    box-shadow: 0px 0px 3px 1px #141313;
     margin: auto;
     margin-top: 15px;
     margin-bottom: 15px;
@@ -88,7 +90,41 @@ h2,h3 {
     padding: 10px;
     background-color: #fff;
     border-radius: 4px;
-    
+}
+
+/* index page posts */
+.post-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    box-shadow: 0px 0px 3px 1px #141313;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 60%;
+    height: min-content;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.img-container {
+    flex: 40;
+}
+
+.discription-container {
+    flex: 40;
+    margin-left: 10px;
+}
+
+.button-container {
+    flex: 20;
+}
+
+.post-date {
+    font: italic 14px/1.4 Georgia, serif;
+    font-size: 12px;
+    font-weight: bold;
 }
 
 .medium-margin {
@@ -98,7 +134,7 @@ h2,h3 {
 
 .welcome {
     display: none;
-    box-shadow: 0px 0px 10px 2px #0f0f0f;
+    box-shadow: 0px 0px 3px 2px #0f0f0f;
     width: 70%;
     padding: 10px;
     background-color: #f5f9f6;
@@ -131,7 +167,7 @@ h2,h3 {
 }
 
 button {
-    width: 150px;
+
     padding: 10px;
     background-color: #739ecd;
     border: none;
@@ -139,11 +175,7 @@ button {
     color: #fff;
     font-size: 16px;
     cursor: pointer;
-    margin-bottom: 10px ;
-}
-
-.button-front-page{
-    margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 .current-user {
@@ -158,23 +190,26 @@ button {
 
 .direct-message-header {
     position: sticky;
-    top: 90px;
+    top: 92px;
     margin: auto;
     width: 50%;
     padding: 10px;
     background-color: #fff;
     border-radius: 4px;
-   
+
 }
 
 
-.img {
-    width: 90%;
+.img-thumb {
+    aspect-ratio: 1/1;
+    width: 95%;
     height: auto;
     padding-top: 17px;
+    object-fit: cover;
+    cursor: pointer;
 }
 
-.img-large{
+.img-large {
     width: 100%;
     height: auto;
     padding-top: 17px;
@@ -183,11 +218,11 @@ button {
 /* Direct message and Styling */
 
 .messages-container {
-  
+
     margin: auto;
     width: 30%;
     padding: 10px;
-    background-color:none;
+    background-color: none;
     border-radius: 4px;
     margin-bottom: 20px;
 }
@@ -202,18 +237,19 @@ button {
     background-color: #fff;
     border-radius: 4px;
     margin-bottom: 20px;
-    bottom: 0 ;
-   
+    bottom: 0;
+
 }
+
 .sent {
-    
+
     background-color: #d1e1f2;
     color: #161616;
     padding: 5px;
     border-radius: 5px;
     width: 80%;
     margin-right: 0%;
-    
+
 
 }
 
@@ -247,8 +283,8 @@ table,
 th,
 td {
     border-collapse: collapse;
-    border-bottom: .1px solid  #333;
-    border-top: .1px solid  #333;
+    border-bottom: .1px solid #333;
+    border-top: .1px solid #333;
     width: 100%;
     white-space: nowrap;
     margin: auto;
@@ -276,7 +312,7 @@ textarea {
     resize: none;
     margin-bottom: 20px;
     padding: 12px 20px;
- 
+
 }
 
 
@@ -290,8 +326,8 @@ input {
 
 
 /*  flash messages */
-.flashes{
-    box-shadow: 0px 0px 10px 1px #141313;
+.flashes {
+    box-shadow: 0px 0px 3px 1px #141313;
     width: 50%;
     margin: auto;
     margin-top: 5px;
@@ -306,23 +342,26 @@ input {
 
 /* media screen */
 @media screen and (max-width: 980px) {
-    .container {
+
+    .container,
+    .post-container {
         width: 95%;
-        font-size: x-small;
+        font-size: small;
     }
 
     .navbar {
         flex-direction: column;
     }
 
-    li,a {
+    li,
+    a {
         font-size: 13px;
     }
 
     table,
     th,
     td {
- 
+
         padding: 10px;
         text-align: left;
         font-size: x-small;
@@ -330,7 +369,7 @@ input {
 
     .messages-container {
         width: 50%;
-       
+
     }
 
     .your-post-user {
@@ -339,9 +378,9 @@ input {
 
     .direct-message-header {
         position: sticky;
-        top: 190px;
-      
-       
+        top: 157px;
+
+
     }
 
 
@@ -349,14 +388,21 @@ input {
 }
 
 @media screen and (max-width: 630px) {
-    .container {
-        width: 85%;
+
+    .container,
+    .post-container {
+        width: 95%;
         font-size: x-small;
+    }
+
+    .sent,
+    .received {
+        width: 80%;
     }
 
     .messages-container {
         width: 95%;
-       
+
     }
 
     .write-message {
@@ -367,15 +413,24 @@ input {
         position: sticky;
         top: 157px;
         width: 100%;
-       
+
+    }
+
+    button {
+        font-size: x-small;
     }
 
     li,
     a {
         font-size: 12px;
     }
-    
 
+    .message-user,
+    .dates,
+    .post-date,
+    .button {
+        font-size: x-small;
+    }
 
 
 }

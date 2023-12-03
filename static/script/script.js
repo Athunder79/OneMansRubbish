@@ -38,7 +38,7 @@ addEventListener('load', function () {
 
 
 })
-
+// hide the reserve button if the item is already reserved or complete
 function hideClaimButton() {
     if (document.getElementById("status") != null)
         if (document.getElementById("status").innerText == "Available") {
@@ -49,11 +49,13 @@ function hideClaimButton() {
         }
 }
 
+// open comment form
 function openComment() {
     document.getElementById("commentForm").className = "container";
     document.getElementById("add-comment").className = "hide";
 }
 
+// close or cancelcomment form
 function closeComment() {
     document.getElementById("commentForm").className = "hide";
     document.getElementById("add-comment").className = "show";
@@ -63,18 +65,22 @@ function removeClaimButton() {
     document.getElementById("claimButton").className = "hide";
 }
 
+// show and hide your details on profile page
 function ShowHideYourDetails() {
     document.getElementById("your-details-body").classList.toggle("show")
 }
 
+// show and hide your posts on profile page
 function ShowHideYourPosts() {
     document.getElementById("your-posts-body").classList.toggle("show")
 }
 
+// show and hide your claimed items on profile page
 function ShowHideClaimedItems() {
     document.getElementById("your-claimed-items-body").classList.toggle("show")
 }
 
+// show and hide your messages on profile page
 function ShowHideYourMessages() {
     document.getElementById("your-messages-body").classList.toggle("show")
 }
