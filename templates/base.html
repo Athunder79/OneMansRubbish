@@ -19,7 +19,7 @@
     <nav>
       <ul>
         <li><a href="{{ url_for('index') }}">HOME</a></li>
-        <li><a href="{{ url_for('submit_post') }}">ADD ITEM</a></li>
+        <li><a href="{{ url_for('submit_post') }}">POST</a></li>
         <li><a href="{{ url_for('categories') }}">CATEGORIES</a></li>
         {% if current_user.is_authenticated %}
         <li><a href="{{ url_for('profile') }}">PROFILE</a></li>
