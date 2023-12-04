@@ -48,6 +48,18 @@ body {
     top: 0;
 }
 
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    bottom: 0;
+    height: auto;
+    padding: 10px;
+    background-color: #196237;
+    color: white;
+    text-align: center;
+}
+
 ul {
     display: flex;
     flex-direction: row;

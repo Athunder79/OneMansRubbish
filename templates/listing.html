@@ -36,7 +36,7 @@
     </div>
     {% endfor %}
     <div class="hide" id="commentForm">
-        <form action="/listing/{{post.post_id}}"   method="POST">
+        <form action="/listing/{{post.post_id}}" method="POST">
             <label for="comment">Comment:</label><br>
             <textarea id="comment-text" name="comment-text" rows="4" cols="50" required></textarea><br><br>
             <button type="submit" id="submit-comment">Submit</button>

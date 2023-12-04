@@ -104,13 +104,11 @@
             <tr>
                 <td>{{ claim.claimed_post.post_title }}</td>
                 <td><a class="your-post-user" href="/direct_message/{{ claim.claim_post_id }}">
-                    {{ claim.claimed_post.posted_by.user_name }} &#9993;</a><br></td>
+                        {{ claim.claimed_post.posted_by.user_name }} &#9993;</a><br></td>
             </tr>
             {% endif %}
             {% endif %}
             {% endfor %}
-
-
 
         </tbody>
     </table>
