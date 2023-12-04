@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<!-- details of post -->
 <h2>Listing</h2>
 <div class="container">
     <h3>{{ post.post_title }}</h3>
@@ -18,12 +19,12 @@
         <span class="message-user">Posted By: {{ post.posted_by.user_name }}</span>
         <span class="dates">{{ post.post_date.strftime('%d-%m-20%y Time: %H:%M') }}</span>
     </p>
-
+<!-- reserve item -->
     <form action="/claim_post/{{post.post_id}}" method="POST">
         <button id="claimButton" class="show" type="submit" value="Claim Item">Reserve Item</button>
     </form>
 </div>
-
+<!-- post comments -->
 <div class="container">
     <h3>Comments</h3>
     {% for comment in comments %}

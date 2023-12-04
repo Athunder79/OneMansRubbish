@@ -2,6 +2,7 @@
 {% block content %}
 <h2>Lastest Items</h2>
 
+<!-- intro -->
 <div class="welcome medium-margin">
     <h3>One man's rubbish is another man's treasure</h3>
     <p>We are a community-driven platform where the spirit of giving thrives!</p>
@@ -12,11 +13,12 @@
     <p>Happy FreeCycling!</p>
 </div>
 
+<!-- filter by category -->
 {% if selected_category %}
 <h3>Fliter by:&nbsp;<a class="filter" href="{{url_for('index')}}"> {{ selected_category }} &nbsp; &#10005; </a></h3>
 {% endif %}
 
-
+<!-- list posts -->
 {% for posts in posted %}
 
 <div class="post-container medium-margin">
