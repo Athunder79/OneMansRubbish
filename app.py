@@ -241,5 +241,4 @@ def delete_post(post_id):
     return redirect(url_for('profile'))
 
 
-if __name__ == "__main__":  
-    app.run(debug=True)
+
