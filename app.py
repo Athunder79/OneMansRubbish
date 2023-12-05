@@ -32,7 +32,7 @@ def load_user(user_id):
 # home page
 @app.route('/')
 def index():
-    # list posted items
+    # list posted items and filter by cataegory
     selected_category = request.args.get('selected_category')
     if selected_category:
         posted = Post.query.filter_by(post_category=selected_category).all()

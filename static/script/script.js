@@ -9,9 +9,11 @@ addEventListener('load', function () {
     let yourPosts = document.getElementById("your-posts");
     let yourClaimedItems = document.getElementById("your-claimed-items");
     let yourMessages = document.getElementById("your-messages");
+    let deletePost = document.getElementById("deletePost");
+    let deletePostCancel = document.getElementById("deletePostCancel");
 
 
-
+// check if the element exists before adding the event listener
     if (addComment != null)
         addComment.addEventListener("click", openComment);
 
@@ -36,8 +38,14 @@ addEventListener('load', function () {
     if (yourMessages != null)
         yourMessages.addEventListener("click", ShowHideYourMessages);
 
+    if (deletePost != null)
+        deletePost.addEventListener("click", deletePostConfirm);
+
+    if (deletePostCancel != null)
+        deletePostCancel.addEventListener("click", deletePostConfirm);
 
 })
+
 // hide the reserve button if the item is already reserved or complete
 function hideClaimButton() {
     if (document.getElementById("status") != null)
@@ -55,7 +63,7 @@ function openComment() {
     document.getElementById("add-comment").className = "hide";
 }
 
-// close or cancelcomment form
+// close or cancel comment form
 function closeComment() {
     document.getElementById("commentForm").className = "hide";
     document.getElementById("add-comment").className = "show";
@@ -80,8 +88,19 @@ function ShowHideClaimedItems() {
     document.getElementById("your-claimed-items-body").classList.toggle("show")
 }
 
-// show and hide your messages on profile page
+// show and hide users you have messaged or messaged you on profile page
 function ShowHideYourMessages() {
     document.getElementById("your-messages-body").classList.toggle("show")
 }
 
+// show delete post confirmation on profile page
+function deletePostConfirm() {
+    document.getElementById("deletePost").classList.toggle("hide")
+    document.getElementById("deletePostConfirm").classList.toggle("show")
+}
+
+// cancel delete post confirmation on profile page
+function deletePostCancel() {
+    document.getElementById("deletePost").classList.toggle("show")
+    document.getElementById("deletePostConfirm").classList.toggle("hide")
+}
