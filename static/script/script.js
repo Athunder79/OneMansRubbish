@@ -1,5 +1,6 @@
-addEventListener('load', function () {
+addEventListener('DOMContentLoaded', function () {
     hideClaimButton();
+    scrollToBottom()
 
     let addComment = document.getElementById("add-comment");
     let submitComment = document.getElementById("submit-comment");
@@ -14,8 +15,7 @@ addEventListener('load', function () {
     let archiveButton = document.getElementById("archive-button");
     let archiveButtonShow = document.getElementById("archive-button-hide");
 
-
-// check if the element exists before adding the event listener
+    // check is element exists before running functions
     if (addComment != null)
         addComment.addEventListener("click", openComment);
 
@@ -132,3 +132,14 @@ function archivePost() {
     [...a].forEach( x => x.className += " archived" );
     [...a].forEach( x => x.classList.remove("post-container-archive") );
 }
+
+// start page at to most recent message
+function scrollToBottom() {
+    let sendMessage = document.getElementById("write-message");
+    if (sendMessage != null)
+    sendMessage.scrollIntoView({
+        behavior: "auto",
+    });
+}
+
+
