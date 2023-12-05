@@ -11,6 +11,8 @@ addEventListener('load', function () {
     let yourMessages = document.getElementById("your-messages");
     let deletePost = document.getElementById("deletePost");
     let deletePostCancel = document.getElementById("deletePostCancel");
+    let archiveButton = document.getElementById("archive-button");
+    let archiveButtonShow = document.getElementById("archive-button-hide");
 
 
 // check if the element exists before adding the event listener
@@ -43,6 +45,14 @@ addEventListener('load', function () {
 
     if (deletePostCancel != null)
         deletePostCancel.addEventListener("click", deletePostConfirm);
+
+    if (archiveButton != null)
+        archiveButton.addEventListener("click", ShowArchivePost);
+
+    if (archiveButtonShow != null)
+        archiveButtonShow.addEventListener("click", archivePost);
+
+
 
 })
 
@@ -103,4 +113,22 @@ function deletePostConfirm() {
 function deletePostCancel() {
     document.getElementById("deletePost").classList.toggle("show")
     document.getElementById("deletePostConfirm").classList.toggle("hide")
+}
+
+// show archive posts on index page
+function ShowArchivePost() {
+    document.getElementById("archive-button-hide").classList.toggle("hide")
+    document.getElementById("archive-button").classList.toggle("hide")
+    let a = document.getElementsByClassName("archived");
+    [...a].forEach( x => x.className += " post-container-archive" );
+    [...a].forEach( x => x.classList.remove("archived") );
+}
+
+// hide archive posts on index page
+function archivePost() {
+    document.getElementById("archive-button-hide").classList.toggle("hide")
+    document.getElementById("archive-button").classList.toggle("hide")
+    let a = document.getElementsByClassName("post-container-archive");
+    [...a].forEach( x => x.className += " archived" );
+    [...a].forEach( x => x.classList.remove("post-container-archive") );
 }

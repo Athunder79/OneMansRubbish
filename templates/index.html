@@ -3,15 +3,26 @@
 <h2>Lastest Items</h2>
 
 
+
+
 <!-- filter by category -->
 {% if selected_category %}
-<h3>Fliter by:&nbsp;<a class="filter" href="{{url_for('index')}}"> {{ selected_category }} &nbsp; &#10005; </a></h3>
+<h3>Flitered by:&nbsp;<a class="filter" href="{{url_for('index')}}"> {{ selected_category }} &nbsp; &#10005; </a></h3>
 {% endif %}
+
+<!-- show/hide archived posts -->
+<h3 id="archive-button">&nbsp;<a class="filter">Show Archived</a></h3>
+<h3 id="archive-button-hide" class="hide">&nbsp;<a class="filter">Hide Archived</a></h3>
 
 <!-- list posts -->
 {% for posts in posted %}
 
+<!-- don't display completed posts -->
+    {% if posts.post_status == 'Gone' %}
+<div class="archived">
+    {% else %}
 <div class="post-container medium-margin">
+    {% endif %}
     <div class="img-container">
         <div><img onclick="window.location.href='{{ url_for('listing', post_id=posts.post_id) }}'" class="img-thumb"
                 src="{{ posts.post_img_url }}" alt="Image of {{ posts.post_title }}"></div>
@@ -30,6 +41,8 @@
             Listing</button>
     </div>
 </div>
+  
+
 {% endfor %}
 
 {% endblock %}

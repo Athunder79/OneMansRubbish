@@ -20,7 +20,7 @@
             <option value="Available" {% if post.post_status=="Available" %} selected {% endif %}>Available</option>
             <option value="Claimed" {% if post.post_status=="Reserved-Pending Collection" %} selected {% endif %}>
                 Claimed</option>
-            <option value="Completed" {% if post.post_status=="Completed" %} selected {% endif %}>Completed</option>
+            <option value="Gone" {% if post.post_status=="Gone" %} selected {% endif %}>Gone</option>
         </select><br><br>
 
         <label for="post_quantity">Quantity:</label>
