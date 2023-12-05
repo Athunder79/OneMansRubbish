@@ -12,6 +12,7 @@
     {% for user in user %}
     {% for message in direct_message %}
     {% if (message.sender.user_name == current_user.user_name) and (message.recipient.user_name == user.user_name) %}
+<!-- sent messages -->
     <div class="sent container medium-margin">
         <p class="message-user"> You:&nbsp;&nbsp;&nbsp;<span class="dates">{{
                 message.direct_message_date.strftime('%d-%m-%y
@@ -21,7 +22,7 @@
     {% endif %}
 
     {% if (message.recipient.user_name == current_user.user_name) and (message.sender.user_name == user.user_name) %}
-
+<!-- received messages -->
     <div class="container medium-margin received">
         <p class="message-user"> {{message.sender.user_name}}:&nbsp;&nbsp;&nbsp;<span class="dates">{{
                 message.direct_message_date.strftime('%d-%m-%y Time: %H:%M')}}</span></p>

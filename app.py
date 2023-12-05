@@ -32,7 +32,7 @@ def load_user(user_id):
 # home page
 @app.route('/')
 def index():
-    # list posted items and filter by cataegory
+    # list posted items and filter by category
     selected_category = request.args.get('selected_category')
     if selected_category:
         posted = Post.query.filter_by(post_category=selected_category).all()
@@ -150,6 +150,7 @@ def submit_post():
         post_quantity = int(request.form.get('post_quantity'))
         post_location = request.form['post_location']
         post_img_url = request.form['post_img_url']
+
        
         if post_quantity < 1:
             flash('Quantity must be greater than 0')
@@ -170,7 +171,10 @@ def submit_post():
         db.session.commit()
        
         return redirect(url_for('index'))
-    return render_template('submit_post.html')
+    
+    # list posted items and filter by category for dropdown
+    posted = Post.query.distinct(Post.post_category).order_by(Post.post_category).all()
+    return render_template('submit_post.html', posted=posted)
 
 
 @app.route('/profile')
